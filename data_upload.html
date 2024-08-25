@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="data_upload.css">
+  <title>Data Upload</title>
+  
+</head>
+<body>
+  <div class="wrapper">
+    <form method="POST" name="google-sheet">
+      <h2>Create Your Own Website</h2>
+
+        <div class="input-field">
+        <input type="text" name="Name" required>
+        <label>Enter your Name</label>
+      </div>
+
+      <div class="input-field">
+        <input type="email" name="Email" required>
+        <label>Enter your email</label>
+      </div>
+
+        <div class="input-field">
+             <input type="text" name="Celebration Type" required>
+          <label>Enter Celebration type</label>
+         </div>
+
+         <div class="input-field">
+            <input type="text" name="Wishes" required>
+         <label>Enter your wishes</label>
+
+        </div>
+        <div class="input-field">
+            <a href="img_upload_page.html">Choose image</a>
+        <label></label>
+        <br>
+        <br>
+        </div>
+        <button type="submit" name="submit">Submit</button>
+    </div>
+
+
+      </div>
+
+    </form>
+  </div>
+ 
+  <script>
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzNHtW3kVyz0PkEUPRpECZH-w_5x9Nex-EToL0HOioogonoK16HTdjvseEtAy-I_64RYQ/exec'
+            const form = document.forms['google-sheet']
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => alert("Thanks for using..! We Will Send Your Website in Your Email Soon..."))
+                .catch(error => console.error('Error!', error.message))
+            })
+
+    let url = "https://script.google.com/macros/s/AKfycbz-2mDzaKpvw1Gs64isE_QtwqO1N7U4tqD8Udzpjwk4M2GBz1qVnq_sKZfJs7uO8DCL/exec";
+    
+    let file = document.querySelector("input");
+    let img = document.querySelector("img");
+    file.addEventListener('change',()=>{
+        let fr = new FileReader();
+        fr.addEventListener('loadend',()=>{
+            let res = fr.result;
+            img.src=res;
+            let spt = res.split("base64,")[1];
+            let obj = {
+                base64:spt,
+                type:file.files[0].type,
+                name:file.files[0].name
+            }
+            fetch(url,{
+                method:"POST",
+                body:JSON.stringify(obj)
+            })
+            .then(r=>r.text())
+            .then(data=>console.log(data))
+ 
+        })
+        // This line reads the selected file as a data URL
+        fr.readAsDataURL(file.files[0])
+    })  
+  
+</script>
+<script src="data_upload.js"></script>
+
+</body>
+</html>
