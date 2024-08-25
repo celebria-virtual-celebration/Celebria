@@ -99,7 +99,7 @@ object-fit: cover;
   max-width: 300px;
   margin: 10px;
   border-radius: 10px;
-  border: 2px solid rgb(109, 0, 218)
+  border: 2px solid;
 }   
 
 .letter {
