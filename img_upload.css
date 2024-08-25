@@ -255,3 +255,9 @@ input {
     text-decoration: none;
     color: white;
   }
+
+.uploadimg{
+	border-image:fill;
+	height: 100px;
+	width: 100px;
+}
